@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  #DONT NEED ANY OF THE DEFAULT ACTIONS AS DEVISE HANDLES THESE, CAN DELETE THEM ALL.
+
   before_action :set_user, only: %i[ show edit update destroy ]
 
   # GET /users or /users.json
