@@ -1,0 +1,18 @@
+<h1>List of all users</h1>
+
+
+<div id="users">
+    <ul>
+        <% for user in @users %>
+            <li>
+                <%= user.first_name %>
+                <%= user.last_name %>
+                <%= button_to "Add Friend", friendships_path(:friend_id => user), :method => :post %>
+            </li>
+        <% end %>
+    </ul>
+</div>
+
+
+<%= link_to "Home", root_path %>
+

@@ -7,17 +7,26 @@
   <li><%= link_to 'Sign up', new_user_registration_path %></li>
 <% end %>
 
-<h1>Newsfeed (posts)</h1>
+<h1>Home</h1>
 
-<%= link_to "New post", new_post_path %>
-
-<div id="posts">
-  <% @posts.each do |post| %>
-    <%= render post %>
-    <%# if post belongs to current user %>
-      <%= link_to "Edit this post", edit_post_path(@post) %>
- 
-  <% end %>
+<div class="navbar"> 
+  <h2>Nav bar</h2>
+  <%= link_to "Friends list", users_show_path %>
+  <%= link_to "Search for new friends", users_index_path %>
 </div>
+
+<div> 
+  <h2>Newsfeed (posts)</h2>
+
+  <%= link_to "New post", new_post_path %>
+
+  <div id="posts">
+    <% @posts.each do |post| %>
+      <%= render post %>
+      <%= link_to "Edit this post", edit_post_path(@post) %>
+    <% end %>
+  </div>
+</div>
+
 
 
