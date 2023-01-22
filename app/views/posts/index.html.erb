@@ -23,7 +23,6 @@
   <div id="posts">
     <% @posts.each do |post| %>
       <%= render post %>
-      <%= link_to "Edit this post", edit_post_path(@post) %>
     <% end %>
   </div>
 </div>

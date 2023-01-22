@@ -1,0 +1,15 @@
+<p>
+  <%= comment.body %>
+</p>
+
+<p>
+  By: <%=comment.user.first_name%> <%=comment.user.last_name%>
+</p>
+
+<p>
+  <%= link_to "Destroy Comment", [comment.post, comment], data: {
+                turbo_method: :delete,
+                turbo_confirm: "Are you sure?"
+              } %>
+</p>
+

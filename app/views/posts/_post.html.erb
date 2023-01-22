@@ -1,4 +1,22 @@
 <div id="<%= dom_id post %>">
-    <p><%= @post.body %></p>
-    <p> By: <%#= post.user %></p>
+    <p><%= post.body %></p>
+    <p> By: <%= post.user.first_name %> <%= post.user.last_name %></p>
+
+    <%= link_to "Edit this post", edit_post_path(post) %>
 </div>
+
+<h4>Comments</h4>
+<%= render post.comments %>
+
+<%= form_with model: [post, post.comments.build ] do |form| %>
+  <p>
+    <%= form.label :comment %><br>
+    <%= form.text_area :body %>
+  </p>
+
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+
+
