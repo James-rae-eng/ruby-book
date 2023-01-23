@@ -11,8 +11,16 @@
 
 <div class="navbar"> 
   <h2>Nav bar</h2>
-  <%= link_to "Friends list", users_show_path %>
-  <%= link_to "Search for new friends", users_index_path %>
+  <%= link_to "Friends list", user_friendships_path(current_user) %>
+  <%= link_to "Search for new friends", users_path %>
+
+  <h3>Friend requests</h3>
+  <% if current_user.received_friend_requests.count.zero? %>
+    <li><%= "None" %></li>
+  <% else %>
+    <%= link_to "View all", user_friend_requests_path(current_user) %>
+  <% end %>
+
 </div>
 
 <div> 

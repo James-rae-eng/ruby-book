@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-
-  resources :friendships
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   resources :posts do
     resources :comments
@@ -11,8 +9,11 @@ Rails.application.routes.draw do
 
   devise_scope :user do  
     get '/users/sign_out' => 'devise/sessions#destroy' 
-    get "users/index" => "users#index"  #this is for the list of users
-    get "users/show" => "users#show"  #this is for the friends list
+  end
+
+  resources :users do 
+    resources :friend_requests
+    resources :friendships
   end
 
   root "posts#index"

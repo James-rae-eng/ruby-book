@@ -1,0 +1,29 @@
+
+<h2>Friend Requests</h2>
+
+<% current_user.received_friend_requests.each do |request| %>
+    <div>
+        <%= link_to "#{request.sender.first_name} #{request.sender.last_name}",
+            user_path(request.sender) %>
+    </div>
+
+    <div>
+        <%= button_to "Accept",
+            user_friendships_path(current_user.id),
+            params: { friendship: { user_id: request.sender.id,
+                                    friend_id: current_user.id
+                                }
+                    }
+        %>
+
+        <%= button_to "Decline",
+            user_friend_request_path(current_user.id, request.sender.id),
+            method: :delete,
+            params: { friend_request: { sender_id: request.sender.id,
+                                        receiver_id: current_user.id
+                                    }
+                    }
+        %>
+    </div>
+<% end %>
+

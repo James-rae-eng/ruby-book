@@ -1,0 +1,8 @@
+
+<div>
+  <% user.friends.each do |friend| %>
+    <div>
+        <%= link_to "#{friend.first_name.capitalize} #{friend.last_name.capitalize}", user_path(friend)%>
+    </div>
+  <% end %>
+</div>

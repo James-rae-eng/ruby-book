@@ -1,21 +1,36 @@
 class FriendshipsController < ApplicationController
 
+  def index
+    @friendships = Friendship.all
+    #@user = User.find(params[:user_id])
+  end
+
+  def new
+    @friendship = Friendship.new
+  end
 
   def create
-    @friendship = current_user.friendships.build(:friend_id => params[:friend_id])
-    if @friendship.save
-      flash[:notice] = "Added friend."
-      redirect_to users_index_url
-    else
-      flash[:error] = "Unable to add friend."
-      redirect_to user_index_url
-    end
+    @friendship = current_user.accepted_friendships.build(friendship_params)
+    return unless @friendship.save
+
+    FriendRequestDestroyer.call(friendship_params)
+    redirect_to request.referrer
   end
 
   def destroy
-    @friendship = current_user.friendships.find(params[:id])
-    @friendship.destroy
-    flash[:notice] = "Removed friendship."
-    redirect_to users_show_url
+    @friendship = Friendship.find_by(user_id: friendship_params[:user_id],
+                                     friend_id: friendship_params[:friend_id]) ||
+                  Friendship.find_by(user_id: friendship_params[:friend_id],
+                                     friend_id: friendship_params[:user_id])
+    return unless @friendship.destroy
+
+    redirect_to request.referrer
   end
+
+  private
+
+  def friendship_params
+    params.require(:friendship).permit(:user_id, :friend_id)
+  end
+  
 end
