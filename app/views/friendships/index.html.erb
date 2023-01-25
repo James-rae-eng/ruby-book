@@ -3,6 +3,6 @@
 
 <% current_user.friends.each do |friend| %>
   <li>
-    <%= link_to "#{request.sender.first_name.capitalize} #{request.sender.last_name.capitalize}", user_path(friend.id) %>
+    <%= link_to "#{friend.first_name.capitalize} #{friend.last_name.capitalize}", user_path(friend)%>
   </li>
 <% end %>
