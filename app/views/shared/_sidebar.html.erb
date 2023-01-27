@@ -1,0 +1,15 @@
+<div class="navbar"> 
+
+  <%= link_to "Profile", user_path(current_user.id) %><br><br>
+
+  <%= link_to "Friends list", user_friendships_path(current_user) %>
+  <h5>Friend requests</h5>
+  <% if current_user.received_friend_requests.count.zero? %>
+    <li><%= "None" %></li>
+  <% else %>
+    <%= link_to "View all", user_friend_requests_path(current_user) %>
+  <% end %>
+
+
+
+</div>

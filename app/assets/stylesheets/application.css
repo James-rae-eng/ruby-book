@@ -14,6 +14,44 @@
  *= require_self
  */
  
- .navbar {
-    border: 2px solid blue
+ .topbar {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   padding: 10px 10px 20px 10px;
+   border-bottom: 2px solid blue;
  }
+
+ .main {
+   display: flex;
+   flex-direction: row;
+ }
+
+ .navbar {
+   border-right: 2px solid blue;
+   width: 150px;
+   padding: 20px 10px;
+}
+
+.newsfeed {
+   padding: 20px 40px;
+   flex-grow: 1;
+}
+
+.newsfeed-title {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.posts {
+   border: 2px solid grey;
+   padding: 10px;
+}
+
+.comment {
+   border: 2px solid grey;
+   margin: 5px;
+}

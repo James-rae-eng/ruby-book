@@ -1,38 +1,20 @@
 <p style="color: green"><%= notice %></p>
 
-<% if user_signed_in? %>
-  <li><%= link_to 'Sign out', destroy_user_session_path, :method=>'delete' %></li>
-<% else %>
-  <li><%= link_to 'Sign in', new_user_session_path %></li>
-  <li><%= link_to 'Sign up', new_user_registration_path %></li>
-<% end %>
 
-<h1>Home</h1>
 
-<div class="navbar"> 
-  <h2>Nav bar</h2>
-  <%= link_to "Friends list", user_friendships_path(current_user) %>
-  <%= link_to "Search for new friends", users_path %>
+<div class="newsfeed"> 
 
-  <h3>Friend requests</h3>
-  <% if current_user.received_friend_requests.count.zero? %>
-    <li><%= "None" %></li>
-  <% else %>
-    <%= link_to "View all", user_friend_requests_path(current_user) %>
-  <% end %>
+  <div class="newsfeed-title">
+    <h2>Newsfeed</h2>
+    <%= link_to "+ New post", new_post_path %>
+  </div>
 
-</div>
-
-<div> 
-  <h2>Newsfeed (posts)</h2>
-
-  <%= link_to "New post", new_post_path %>
-
-  <div id="posts">
+  <div class="posts">
     <% @posts.each do |post| %>
       <%= render post %>
     <% end %>
   </div>
+
 </div>
 
 
