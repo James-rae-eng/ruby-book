@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :users do 
     resources :friend_requests
     resources :friendships
+    resources :likes, only: %i[create destroy]
   end
 
   root "posts#index"

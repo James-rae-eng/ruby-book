@@ -2,6 +2,9 @@
     <p><%= post.body %></p>
     <p> By: <%= post.user.first_name %> <%= post.user.last_name %></p>
 
+    <%= render partial: 'likes/button', locals: {likeable: post} %>
+    <%= post.likes.count %>
+
     <%= link_to "Edit this post", edit_post_path(post) %>
 </div>
 

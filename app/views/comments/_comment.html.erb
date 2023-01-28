@@ -7,6 +7,9 @@
     By: <%=comment.user.first_name%> <%=comment.user.last_name%>
   </p>
 
+  <%= render partial: 'likes/button', locals: {likeable: comment} %>
+  <%= comment.likes.count %>
+
   <p>
     <%= link_to "Delete this Comment", [comment.post, comment], data: {
                   turbo_method: :delete,

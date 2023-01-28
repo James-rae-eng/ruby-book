@@ -1,0 +1,6 @@
+<% like = current_user.likes.find_by(likeable: likeable) %>
+<% if like.nil? %>
+    <%= button_to("Like", user_likes_path(current_user.id), params:{like: {likeable_id: likeable.id, likeable_type: likeable.class.to_s}}) %>
+<% else %>
+    <%= button_to("Unlike", user_like_path(current_user, like), method: :delete) %>
+<% end %>
