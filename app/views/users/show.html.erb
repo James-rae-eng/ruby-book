@@ -1,4 +1,29 @@
-<h1>Users show page</h1>
- 
+<div class="profile"> 
+    <h1> <%=@user.first_name%> <%=@user.last_name%> </h1>
 
+    <div class="personal-details">
+        <div class="personal-details-head">
+            <h3> Personal details:</h3>
+            <% if @user == current_user %>
+                <%= link_to "Edit", edit_user_path %>
+            <% end %>
+        </div>
+        <div>
+            <% unless @user.age.blank? %>
+                <p> Age: <%= @user.age %> </p><br>
+            <% end %>
 
+            <% unless @user.city.blank? %>
+                <p> City: <%= @user.city %> </p><br>
+            <% end %>
+
+            <% unless @user.education.blank? %>
+                <p> Education: <%= @user.education %> </p><br>
+            <% end %>
+
+            <% unless @user.work.blank? %>
+                <p> Work: <%= @user.work %> </p><br>
+            <% end %>
+        </div>
+    </div>
+</div>

@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :posts
   has_many :comments
   has_many :likes
+  has_one :profile
 
   validates :first_name, presence: true
   validates :last_name, presence: true

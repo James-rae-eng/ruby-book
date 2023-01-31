@@ -1,0 +1,26 @@
+<%= form_with(model: user) do |form| %>
+
+    <div>
+        <%= form.label :age %><br>
+        <%= form.number_field :age %><br>
+    </div>
+
+    <div>
+        <%= form.label :city %><br>
+        <%= form.text_area :city %><br>
+    </div>
+
+    <div>
+        <%= form.label :education %><br>
+        <%= form.text_area :education %><br>
+    </div>
+
+    <div>
+        <%= form.label :work %><br>
+        <%= form.text_area :work %><br>
+    </div>
+
+    <div>
+        <%= form.submit %>
+    </div>
+<% end %>
