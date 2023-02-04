@@ -1,11 +1,16 @@
 <div class="profile"> 
+
+    <% if @user.avatar.attached? %>
+        <image class="profile-photo" src="<%=(url_for(@user.avatar))%>">
+    <%end%>
+
     <h1> <%=@user.first_name%> <%=@user.last_name%> </h1>
 
     <div class="personal-details">
         <div class="personal-details-head">
             <h3> Personal details:</h3>
             <% if @user == current_user %>
-                <%= link_to "Edit", edit_user_path %>
+                <%= link_to "Edit info/avatar", edit_user_path %>
             <% end %>
         </div>
         <div>

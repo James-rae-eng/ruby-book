@@ -14,6 +14,7 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
+    #@user.avatar.attach(user_params[:avatar])
     if @user.update(user_params)
       flash[:notice] = 'Profile successfully updated'
       redirect_to user_path(@user)
@@ -25,7 +26,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :age, :city, :education, :work)
+    params.require(:user).permit(:first_name, :last_name, :age, :city, :education, :work, :avatar)
   end
 
 end
