@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :trackable, :omniauthable, omniauth_providers: [:facebook]
   devise :omniauthable, omniauth_providers: %i[facebook]
 
   has_many :posts
@@ -45,7 +45,12 @@ class User < ApplicationRecord
     find_or_create_by(provider: auth.provider, uid: auth.uid) do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
-      user.first_name = auth.info.name   # assuming the user model has a name
+      user.provider = auth.provider
+      user.uid = auth.uid
+
+      user.first_name = auth.info.name 
+      user.last_name = auth.info.name
+      
       # If you are using confirmable and the provider(s) you use validate emails, 
       # uncomment the line below to skip the confirmation emails.
       # user.skip_confirmation!

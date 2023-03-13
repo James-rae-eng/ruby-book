@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   devise_scope :user do  
     get '/users/sign_out' => 'devise/sessions#destroy'
+    get '/users/auth/:provider/upgrade' => 'users/omniauth_callbacks#upgrade', as: :user_omniauth_upgrade
+    get '/users/auth/:provider/setup', :to => 'users/omniauth_callbacks#setup'
   end
 
   resources :users do 
