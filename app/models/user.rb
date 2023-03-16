@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :trackable, :omniauthable, omniauth_providers: [:facebook]
-  devise :omniauthable, omniauth_providers: %i[facebook]
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :trackable, 
+         :omniauthable, omniauth_providers: %i[facebook]
 
   has_many :posts
   has_many :comments
@@ -41,19 +41,29 @@ class User < ApplicationRecord
     received_friend_requests.any? { |request| request.sender == other_user }
   end
 
-  def self.from_omniauth(auth)
-    find_or_create_by(provider: auth.provider, uid: auth.uid) do |user|
-      user.email = auth.info.email
-      user.password = Devise.friendly_token[0, 20]
-      user.provider = auth.provider
-      user.uid = auth.uid
+  #def self.from_omniauth(auth)
+  #  where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+  #    user.email = auth.info.email || "#{auth.uid}@facebook.com"
+  #    user.password = Devise.friendly_token[0, 20]
+  #    user.provider = auth.provider
+  #    user.uid = auth.uid
 
-      user.first_name = auth.info.name 
-      user.last_name = auth.info.name
+  #    user.first_name = auth.info.first_name 
+  #    user.last_name = auth.info.last_name
       
       # If you are using confirmable and the provider(s) you use validate emails, 
       # uncomment the line below to skip the confirmation emails.
       # user.skip_confirmation!
+  #  end
+  #end
+
+
+  def self.from_omniauth(auth)
+    oauth_user = where(provider: auth.provider, uid: auth.uid).first_or_initialize do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
+      user.first_name = auth.info.first_name 
+      user.last_name = auth.info.last_name
     end
   end
 
@@ -61,6 +71,8 @@ class User < ApplicationRecord
     super.tap do |user|
       if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
         user.email = data["email"] if user.email.blank?
+        user.first_name = data["name"] if user.first_name.blank?
+        user.last_name = data["name"] if user.last_name.blank?
       end
     end
   end
